@@ -3,6 +3,7 @@ const app = express()
 const accessKey = '3yhz4zai60zzxn';
 const fetch = require('node-fetch');
 const port = 3000
+const path = require('path');
 
 const cityRowData = async function (country, city) {
     return new Promise((resolve, reject) => {
@@ -16,12 +17,21 @@ const fetchData = async function (country, city) {
     return (result)
 }
 
+app.use('/home',express.static(__dirname+'/public')) 
+//it serves the html to the local host page in the route home
+
 app.get('/health', (req, res) => {
     console.log(req.query)
     const cityUser = req.query.city
     const countryUser = req.query.country
+    if (!cityUser || !countryUser) {
+        return
+    }
     fetchData(countryUser, cityUser).then(jsonData => res.send(jsonData))
 })
+
+
+
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
