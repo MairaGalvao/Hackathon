@@ -1,0 +1,23 @@
+{
+  "name": "hackathon_2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MairaGalvao/Hackathon.git"
+  },
+  "author": "Maira Galvao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MairaGalvao/Hackathon/issues"
+  },
+  "homepage": "https://github.com/MairaGalvao/Hackathon#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
