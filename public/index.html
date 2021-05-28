@@ -5,13 +5,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Health System Forecast</title>
 </head>
 
 <body>
+    
+
+    
     <div style="display: flex; justify-content: center; align-items: center; padding-bottom: 35px;">
         <span style="font-size:50px;">🩺</span>
-        <h1 style="font-family: system-ui; padding-left: 10px;">Health Forecast</h1>
+        <h1 class='welcome'>Health Cost Forecast</h1>
     </div>
     <div style="display: flex; justify-content: center; align-items: center; padding-bottom: 35px; font-family: system-ui; color: rgb(40,40,40); font-size: 12px; cursor: pointer;">
         <span  id="explain" onClick="explain()">What is this?</span>
@@ -20,8 +24,12 @@
         <input id="city" placeholder='Pick a city'>
         <input id="country" placeholder='Pick a country'>
         <button onclick="getData()">Click me</button>
-
+        
     </div>
+    <div id='loaderParent'>
+    <div id="loader"></div>
+</div>
+
     <div id="result"> </div>
 
     <script src="script.js"></script>
