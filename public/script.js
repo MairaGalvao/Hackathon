@@ -1,4 +1,3 @@
-
 const insertDataDom = (data, param, insideText) => {   // param = 'cost' / 'speed'
     let divResult = document.getElementById('result')
     let myDiv = document.createElement('div')
@@ -7,12 +6,23 @@ const insertDataDom = (data, param, insideText) => {   // param = 'cost' / 'spee
     mySpan.innerHTML = insideText
     mySpan.style = 'font-size:50px;'
     myDiv.id = param
-    myDiv.innerHTML = data[param]
+    const percentageData = convertToPercentage(data[param])
+   
+    
+    myDiv.innerHTML = `${percentageData}% ${param.split('_').join(' ')}`
     //todo replace content instead of creating a new div each time the user clicks on the button
     myDiv.appendChild(mySpan)
     divResult.appendChild(myDiv)
-
 }
+
+const convertToPercentage = (number) => {
+    // number is between -2 to 2
+    const numberPlusTwo = number + 2
+    const myTotal = 4
+    const percentage = numberPlusTwo * 100 / myTotal
+    return Math.round(percentage)
+}
+
 
 const getData = () => {
     // upon click, redirect to /health. 
@@ -29,25 +39,33 @@ const getData = () => {
         if (err !== null) {
             console.log('Something went wrong: ' + err);
         } else {
-            // todo convert data to %
-            insertDataDom(data, 'cost', '💳')
-            insertDataDom(data, 'speed', '⏱')
-            insertDataDom(data, 'skill_and_competency', '💪')
-            // insertDataDom(data, 'responsiveness_waitings')
-            // insertDataDom(data, 'accuracy_and_completeness')
-            console.log('Your query count: ', data);
+            displayData(data)
+
         }
     }
-
     getJSON(url, callThisWhenYouGetData);
-
 }
 
-function explain(){
+const displayData = (data) => {
+    convertToPercentage(data.cost)
+
+    insertDataDom(data, 'cost', '💳')
+    insertDataDom(data, 'speed', '⏱')
+    insertDataDom(data, 'skill_and_competency', '💪')
+    insertDataDom(data, 'modern_equipment', '⚗️')
+    insertDataDom(data, 'friendliness_and_courtesy', '😊')
+    insertDataDom(data, 'responsiveness_waitings', '⌛')
+}
+
+
+
+
+
+function explain() {
     let myDiv = document.getElementById('explain')
     if (myDiv.textContent.trim() == 'What is this?') {
         myDiv.innerHTML = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-    } 
+    }
     else {
         myDiv.innerHTML = 'What is this?'
     }
