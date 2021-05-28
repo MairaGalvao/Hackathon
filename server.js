@@ -18,6 +18,7 @@ const fetchData = async function (country, city) {
 }
 
 app.use('/home',express.static(__dirname+'/public')) 
+//about page contains just a welcome and an explanation of the website
 //it serves the html to the local host page in the route home
 
 app.get('/health', (req, res) => {
