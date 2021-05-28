@@ -1,10 +1,17 @@
-const insertDataDom = (data, param) => {   // param = 'cost' / 'speed'
+
+const insertDataDom = (data, param, insideText) => {   // param = 'cost' / 'speed'
     let divResult = document.getElementById('result')
     let myDiv = document.createElement('div')
+    let mySpan = document.createElement('span')
+    mySpan.id = 'icon' + param
+    mySpan.innerHTML = insideText
+    mySpan.style = 'font-size:50px;'
     myDiv.id = param
     myDiv.innerHTML = data[param]
     //todo replace content instead of creating a new div each time the user clicks on the button
+    myDiv.appendChild(mySpan)
     divResult.appendChild(myDiv)
+
 }
 
 const getData = () => {
@@ -22,18 +29,28 @@ const getData = () => {
         if (err !== null) {
             console.log('Something went wrong: ' + err);
         } else {
-            insertDataDom(data, 'cost')
-            insertDataDom(data, 'speed')
-            insertDataDom(data, 'skill_and_competency')
-            insertDataDom(data, 'responsiveness_waitings')
-            insertDataDom(data, 'accuracy_and_completeness')
+            // todo convert data to %
+            insertDataDom(data, 'cost', '💳')
+            insertDataDom(data, 'speed', '⏱')
+            insertDataDom(data, 'skill_and_competency', '💪')
+            // insertDataDom(data, 'responsiveness_waitings')
+            // insertDataDom(data, 'accuracy_and_completeness')
             console.log('Your query count: ', data);
-
         }
     }
 
     getJSON(url, callThisWhenYouGetData);
 
+}
+
+function explain(){
+    let myDiv = document.getElementById('explain')
+    if (myDiv.textContent.trim() == 'What is this?') {
+        myDiv.innerHTML = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    } 
+    else {
+        myDiv.innerHTML = 'What is this?'
+    }
 }
 
 function getJSON(url, callback) {
