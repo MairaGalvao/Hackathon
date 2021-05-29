@@ -1,16 +1,30 @@
 const startLoading = () => {
-    let myLoader = document.getElementById('loader')
-     console.log(myLoader)
-    myLoader.style.display = 'block'
-
-}
+  let myLoader = document.getElementById("loader");
+  myLoader.style.display = "block";
+};
 
 const endLoading = () => {
-  let myLoader = document.getElementById('loader')
-  myLoader.style.display = 'none'
-  
-}
+  let myLoader = document.getElementById("loader");
+  myLoader.style.display = "none";
+};
 
+const displayError = (message) => {
+  hideResults();
+  endLoading();
+  let errorDiv = document.getElementById("error");
+  errorDiv.style.display = "block";
+  errorDiv.innerHTML = message;
+};
+
+const hideError = () => {
+  let errorDiv = document.getElementById("error");
+  errorDiv.style.display = "none";
+};
+
+const hideResults = () => {
+  let divResult = document.getElementById("result");
+  divResult.style.display = "none";
+};
 
 const insertDataDom = (data, param, insideText) => {
   let divResult = document.getElementById("result");
@@ -28,10 +42,10 @@ const insertDataDom = (data, param, insideText) => {
   emojiSpan.style = "font-size:50px;";
   myDiv.id = param;
   myDiv.style =
-    "display: flex;flex-direction: column;align-items: center; justify-content: center;font-size: 30px;";
+    "display: flex;flex-direction: column;align-items: center; justify-content: center;font-size: 25px; font-family: system-ui;    background-color: white;    border-radius: 10px;    padding: 5px;    ";
   const percentageData = convertToPercentage(data[param]);
 
-  myDiv.innerHTML = `${percentageData}% ${param.split("_").join(" ")}`;
+  myDiv.innerHTML = `${param.split("_").join(" ")}: ${percentageData}% `;
   myDiv.appendChild(emojiSpan);
   divResult.appendChild(myDiv);
 };
@@ -48,21 +62,29 @@ const getData = () => {
   // upon click, redirect to /health.
   // this will call the relevant route in the server, which will do an API call to Nambeu.
   // the results will be shown on the /health route
-  startLoading()
+  startLoading();
+  hideError();
   let cityUser = document.getElementById("city").value;
   let countryUser = document.getElementById("country").value;
   cityUser = cityUser.split(" ").join("+");
   countryUser = countryUser.split(" ").join("+");
+
+  if (cityUser.length === 0 || countryUser.length === 0) {
+    displayError("Must insert valid country and city");
+    return;
+  }
+
   //todo add toUppercase sensitive - to be able to search for a country with lower caps
   const url = `http://localhost:3000/health?city=${cityUser}&country=${countryUser}`;
 
   const callThisWhenYouGetData = function (err, data) {
     if (err !== null) {
       console.log("Something went wrong: " + err);
-      endLoading()
+      endLoading();
+      displayError(data.error);
     } else {
       displayData(data);
-      endLoading()
+      endLoading();
     }
   };
   getJSON(url, callThisWhenYouGetData);
@@ -81,11 +103,13 @@ const displayData = (data) => {
 
 function explain() {
   let myDiv = document.getElementById("explain");
-  if (myDiv.textContent.trim() == "What is this?") {
+  if (myDiv.textContent.trim() == "What is this website?") {
     myDiv.innerHTML =
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+      "Health Forecast is a website that provides information about healthcare perceptions in a city.<br>Among the measures that the website provides are costs, the speed in the appointments, how responsive the staff is in terms of waiting times, and friendliness nature of the services provided on all the cities in the world.";
+    myDiv.style.width = "850px";
   } else {
     myDiv.innerHTML = "What is this?";
+    myDiv.style.width = "200px";
   }
 }
 
@@ -95,7 +119,7 @@ function getJSON(url, callback) {
   xhr.responseType = "json";
   xhr.onload = function () {
     var status = xhr.status;
-    if (status === 200) {
+    if (status === 200 && !xhr.response.error) {
       callback(null, xhr.response);
     } else {
       callback(status, xhr.response);

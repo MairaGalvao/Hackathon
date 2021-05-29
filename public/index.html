@@ -1,38 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Health Care Forecast</title>
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Health System Forecast</title>
-</head>
+  <body>
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      "
+    >
+      <span style="font-size: 45px">🩺</span>
 
-<body>
-    
-
-    
-    <div style="display: flex; justify-content: center; align-items: center; padding-bottom: 35px;">
-        <span style="font-size:50px;">🩺</span>
-        <h1 class='welcome'>Health Cost Forecast</h1>
+      <h1 class="welcome">International Health Care Analysis</h1>
     </div>
-    <div style="display: flex; justify-content: center; align-items: center; padding-bottom: 35px; font-family: system-ui; color: rgb(40,40,40); font-size: 12px; cursor: pointer;">
-        <span  id="explain" onClick="explain()">What is this?</span>
+    <div id="explainWrap">
+      <div>
+        <span id="explain" onClick="explain()">What is this website?</span>
+      </div>
     </div>
-    <div style="display: flex; justify-content: center; align-items: center;">
-        <input id="city" placeholder='Pick a city'>
-        <input id="country" placeholder='Pick a country'>
-        <button onclick="getData()">Click me</button>
-        
+    <div style="display: flex; justify-content: center; align-items: center">
+      <input
+        id="city"
+        placeholder="City"
+        size="30"
+        style="
+          font-size: 20px;
+          width: 250px;
+          margin-right: 20px;
+          border-radius: 5px;
+          border-width: 3px;
+          font-family: system-ui;
+          text-align: center;
+          padding-bottom: 4px;
+        "
+      />
+      <input
+        id="country"
+        placeholder="Country"
+        size="30"
+        style="
+          font-size: 20px;
+          width: 250px;
+          border-radius: 5px;
+          border-width: 3px;
+          font-family: system-ui;
+          text-align: center;
+          padding-bottom: 4px;
+        "
+      />
     </div>
-    <div id='loaderParent'>
-    <div id="loader"></div>
-</div>
 
-    <div id="result"> </div>
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 40px;
+      "
+    >
+      <button class="button" onclick="getData()">
+        Submit
+        <div class="button__horizontal"></div>
+        <div class="button__vertical"></div>
+      </button>
+    </div>
+    <div id="loaderParent">
+      <div id="loader"></div>
+    </div>
+
+    <div id="result"></div>
+    <div id="error"></div>
 
     <script src="script.js"></script>
-</body>
-
+  </body>
 </html>
