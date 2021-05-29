@@ -2,7 +2,8 @@
 
 *An app that provides measurements of health care around the world.*
 
-*a pic of the project
+![image](https://user-images.githubusercontent.com/60095149/120079588-3a09ba00-c0bd-11eb-9511-7c43c029e29a.png)
+
 
 **Description**
 
